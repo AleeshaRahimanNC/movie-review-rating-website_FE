@@ -6,7 +6,7 @@ This repository contains the frontend for the Movie Review and Rating website. I
 
 Before you begin, ensure you have met the following requirements:
 1. You have installed Node.js and npm.
-2. You have the backend server running (refer to [MysticMovies_BE]).
+2. You have the backend server running (refer to [MysticMovies_BE](https://github.com/AleeshaRahimanNC/movie-review-rating-website_BE)).
 
 ## Installation
 
