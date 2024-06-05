@@ -1,70 +1,97 @@
-# Getting Started with Create React App
+# MysticMovies_FE (Movie Review and Rating Website Frontend)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This repository contains the frontend for the Movie Review and Rating website. It is built using React.js, with Redux for state management and Axios for making HTTP requests to the backend API, and styled with HTML, CSS, and React Bootstrap.
 
-## Available Scripts
+## Prerequisites
 
-In the project directory, you can run:
+Before you begin, ensure you have met the following requirements:
+1. You have installed Node.js and npm.
+2. You have the backend server running (refer to [MysticMovies_BE]).
 
-### `npm start`
+## Installation
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+1. Clone the repository:
+    ```bash
+    git clone <your-repo-url>
+    cd <your-repo-directory>
+    ```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+2. Install the required packages:
+    ```bash
+    npm install
+    ```
 
-### `npm test`
+## Library and Package Planning
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. **React**: Core library for building user interfaces.
+    ```bash
+    npx create-react-app projectname
+    ```
 
-### `npm run build`
+2. **React Router**: For handling routing in the application.
+    ```bash
+    npm i react-router-dom
+    ```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+3. **Axios**: For making HTTP requests to the backend.
+    ```bash
+    npm i axios
+    ```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+4. **Redux**: For state management (optional, if needed for complex state management).
+    ```bash
+    npm i react-redux
+    ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+5. **Material-UI**: For UI components and styling.
+    ```bash
+    npm install @mui/material @emotion/react @emotion/styled
+    ```
 
-### `npm run eject`
+6. **Font Awesome**: For icons.
+    ```bash
+    npm i --save @fortawesome/fontawesome-svg-core
+    npm install --save @fortawesome/free-solid-svg-icons
+    npm install --save @fortawesome/react-fontawesome
+    ```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+7. **Formik**: For handling forms and form validation.
+    ```bash
+    npm i formik
+    ```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+8. **Yup**: For form validation schemas.
+    ```bash
+    npm i yup
+    ```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+9. **React Bootstrap**: For Bootstrap components built with React.
+    ```bash
+    npm install react-bootstrap bootstrap
+    ```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+10. **React Toastify**: For showing toast notifications in your React application.
+    ```bash
+    npm i react-toastify
+    ```
 
-## Learn More
+11. **React App Rewire Alias**: For customizing the Create React App (CRA) configuration to add aliasing for module imports without ejecting the app.
+    ```bash
+    npm i react-app-rewired react-app-rewire-alias --save-dev
+    ```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Usage
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+1. Create a `.env` file in the root directory and add your environment variables. For example:
+    ```plaintext
+    REACT_APP_API_URL=your_backend_api_url
+    ```
 
-### Code Splitting
+2. Start the development server:
+    ```bash
+    npm start
+    ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Acknowledgments
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Thanks to all the contributors of open-source packages used in this project.
