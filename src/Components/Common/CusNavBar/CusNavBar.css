@@ -45,9 +45,9 @@
   cursor: pointer;
 }
 
- .nav-item .nav-link:hover{
+ /* .nav-item .nav-link:hover{
   color: var(--brand-grey-2);
-}
+} */
 
 .nav-item {
   margin: 0 15px; /* Add horizontal margin for spacing */
@@ -72,17 +72,24 @@
   
 }
 
+.navbar-nav .nav-link.active, .navbar-nav .nav-link.show {
+  color: var(--brand-white);
+}
 
 
 
 
+@media only screen and (max-width: 600px) {
+  .dropdown-menu-end[data-bs-popper] {
+    right: 0;
+    left: 0;
+}
+  
+}
 
 
 /* Align the dropdown menu to the left of the button */
-/* .dropdown-menu {
-    right: 0;
-    left: auto;
-  } */
+
 
 /* Ensure the dropdown menu is within the viewport */
 /* .dropdown-menu.show {

@@ -1,24 +1,86 @@
 
-.left-image{
+.background {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.background::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../../Assets/background_img.jpeg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  filter: blur(10px);
+  z-index: 1;
+}
+
+
+.logo {
+  color: var(--brand-white);
+  z-index: 2;
+}
+
+.logo .mystic-icon {
+  width: 50px;
+  height: 38px;
+  z-index: 2;
+
+}
+
+.left-image__login h2 em {
+  position: relative;
+  z-index: 2;
+}
+
+.left-image__register h2 em {
+  position: relative;
+  z-index: 2;
+}
+
+.logo__wrapper {
+  margin-top: 21px;
+}
+
+
+.left-image__login {
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
   border-radius: 10px;
   position: relative;
   background-color: var(--brand-black);
+  overflow: hidden;
   /* background-color: rgba(0, 0, 0, 0.6); */
 }
 
-.authpage .row{
+.left-image__register {
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-radius: 10px;
+  position: relative;
+  background-color: var(--brand-black);
+  overflow: hidden;
+}
+
+.authpage .row {
   width: 900px;
   min-height: 450px;
   border-radius: 10px;
   background-color: var(--brand-white);
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-  
+
 }
-.left-image p {
-  position: absolute;
+
+.left-image__login p {
+  /* position: absolute;
   top:50%;
   left: 50%;
   transform: translate(-50%,-50%);
@@ -27,9 +89,148 @@
   text-align: center;
   font-size: large;
   font-weight: 700;
+  z-index: 2; */
+
+  position: absolute;
+  top: 50%;
+  left: 49%;
+  transform: translate(-50%, -50%);
+  color: var(--brand-white);
+  /* text-wrap: wrap; */
+  /* text-align: center; */
+  font-size: large;
+  font-weight: 700;
+  z-index: 2;
+}
+
+.left-image__register p {
+  /* position: absolute;
+  top:50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  color: var(--brand-white);
+  text-wrap: wrap;
+  text-align: center;
+  font-size: large;
+  font-weight: 700;
+  z-index: 2; */
+
+  position: absolute;
+  top: 50%;
+  left: 49%;
+  transform: translate(-50%, -50%);
+  color: var(--brand-white);
+  /* text-wrap: wrap; */
+  /* text-align: center; */
+  font-size: large;
+  font-weight: 700;
+  z-index: 2;
 }
 
 .new-line {
   display: block;
   font-size: 25px;
+}
+
+.left-image__login::before,
+.left-image__register::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  /* adjust the opacity as needed */
+  z-index: 1;
+}
+
+.text-content h2 {
+  position: relative;
+  font-size: 40px;
+  z-index: 2;
+  color: white;
+}
+
+.new-line {
+  display: block;
+  font-size: 25px;
+}
+
+.text-content {
+  margin-top: 134px;
+}
+
+.text-content p {
+  font-size: 16px;
+  margin: 85px 0;
+  width: 90%;
+}
+
+
+.icon-link {
+  color: white;
+  margin-right: 15px;
+  font-size: 22px;
+  transition: .5s ease;
+}
+
+.icon-link:hover {
+  transform: scale(1.2);
+}
+
+.social-icons {
+  margin-top: 83px;
+  margin-left: 8px;
+  position: relative;
+  z-index: 2;
+}
+
+@media only screen and (max-width: 600px) {
+  .left-image__login {
+    min-height: 50vh;
+
+  }
+
+  .left-image__register {
+    min-height: 50vh;
+    margin-top: 127px;
+  }
+
+  .text-content p {
+    display: none;
+  }
+
+  .text-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .text-content {
+    margin-top: 50px;
+  }
+
+  .social-icons {
+    display: none;
+  }
+}
+@media only screen and (max-width: 992px) {
+  .social-icons {
+    display: none;
+  }
+
+  .text-content p {
+    display: none;
+  }
+
+  .left-image__login {
+    min-height: 50vh;
+
+  }
+
+  .left-image__register {
+    min-height: 50vh;
+    margin-top: 127px;
+  }
 }
