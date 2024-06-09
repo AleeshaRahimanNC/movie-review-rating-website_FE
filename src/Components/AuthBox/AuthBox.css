@@ -1,0 +1,11 @@
+.already-account{
+  font-size: .7rem;
+}
+.already-account i {
+  color :var(--brand-red);
+  font-style: italic;
+}
+.already-account i:hover{
+  text-decoration: underline;
+  cursor: pointer;
+}

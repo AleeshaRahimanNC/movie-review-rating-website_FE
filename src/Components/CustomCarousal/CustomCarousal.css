@@ -1,0 +1,23 @@
+.carousal-container{
+    max-height: 100vh;
+}
+
+.carousal-container img{
+    max-height: calc(100vh - 40px);
+    object-fit: cover;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    background-color: rgba(0, 0, 0, 0.6);
+    width: 40px;
+    height: 70px;
+    margin: auto;
+}
+
+/* Adjustments for smaller screens */
+@media (max-width: 768px) {
+    .carousal-container img {
+        max-height: 35vh;/* Reduce max-height for smaller screens */
+    }
+}
