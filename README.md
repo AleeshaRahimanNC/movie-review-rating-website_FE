@@ -41,6 +41,7 @@ Before you begin, ensure you have met the following requirements:
 4. **Redux**: For state management (optional, if needed for complex state management).
     ```bash
     npm i react-redux
+    npm i @reduxjs/toolkit
     ```
 
 5. **Material-UI**: For UI components and styling.
@@ -53,6 +54,7 @@ Before you begin, ensure you have met the following requirements:
     npm i --save @fortawesome/fontawesome-svg-core
     npm install --save @fortawesome/free-solid-svg-icons
     npm install --save @fortawesome/react-fontawesome
+    npm install --save @fortawesome/free-brands-svg-icons
     ```
 
 7. **Formik**: For handling forms and form validation.

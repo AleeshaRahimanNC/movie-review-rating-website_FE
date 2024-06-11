@@ -1,9 +1,8 @@
-
 .background {
   position: relative;
   width: 100%;
-  height: 100vh;
-  overflow: hidden;
+  /* height: 100vh; */
+  /* overflow: hidden; */
 }
 
 .background::before {
@@ -13,14 +12,13 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('../../Assets/background_img.jpeg');
+  background-image: url("../../Assets/background_img.jpeg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
   filter: blur(10px);
   z-index: 1;
 }
-
 
 .logo {
   color: var(--brand-white);
@@ -31,7 +29,6 @@
   width: 50px;
   height: 38px;
   z-index: 2;
-
 }
 
 .left-image__login h2 em {
@@ -47,7 +44,6 @@
 .logo__wrapper {
   margin-top: 21px;
 }
-
 
 .left-image__login {
   background-position: center;
@@ -76,10 +72,9 @@
   border-radius: 10px;
   background-color: var(--brand-white);
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-
 }
 
-.left-image__login p {
+.left-image__login h6 {
   /* position: absolute;
   top:50%;
   left: 50%;
@@ -103,7 +98,7 @@
   z-index: 2;
 }
 
-.left-image__register p {
+.left-image__register h6 {
   /* position: absolute;
   top:50%;
   left: 50%;
@@ -159,20 +154,25 @@
 
 .text-content {
   margin-top: 134px;
+  /* min-height: 191px; */
+  display: flex;
+  flex-direction: column;
+  min-height: 45%;
+  justify-content: flex-end;
 }
 
-.text-content p {
+.text-content h6 {
+  /* position: relative; */
   font-size: 16px;
-  margin: 85px 0;
+  margin: 90px 0;
   width: 90%;
 }
-
 
 .icon-link {
   color: white;
   margin-right: 15px;
   font-size: 22px;
-  transition: .5s ease;
+  transition: 0.5s ease;
 }
 
 .icon-link:hover {
@@ -189,7 +189,6 @@
 @media only screen and (max-width: 600px) {
   .left-image__login {
     min-height: 50vh;
-
   }
 
   .left-image__register {
@@ -197,7 +196,7 @@
     margin-top: 127px;
   }
 
-  .text-content p {
+  .text-content h6 {
     display: none;
   }
 
@@ -214,23 +213,25 @@
   .social-icons {
     display: none;
   }
+  .logo__wrapper {
+    margin-top: 34px;
+  }
 }
 @media only screen and (max-width: 992px) {
   .social-icons {
     display: none;
   }
 
-  .text-content p {
+  .text-content h6 {
     display: none;
   }
 
   .left-image__login {
     min-height: 50vh;
-
   }
 
   .left-image__register {
     min-height: 50vh;
-    margin-top: 127px;
+    /* margin-top: 127px; */
   }
 }
