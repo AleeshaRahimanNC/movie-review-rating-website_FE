@@ -1,36 +1,41 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./AuthBox.css";
 import CustomInput from "../Common/CustomInput/CustomInput";
-
+import axios from "axios";
+import { ErrorToast, successToast } from "../../Plugins/Toast/Toast";
+import { useDispatch, useSelector } from "react-redux";
+import { showorhideLoader } from "../../Redux/generalSlice";
 
 function RegisterBox({ toggleBox }) {
+  const [registerData, setRegisterData] = useState({});
+  const {showLoader} =useSelector((store=>store.general))
+  const dispatch=useDispatch();
 
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-
-
-  const handleName = (e) => {
-    setName(e.target.value);
-  };
-  const handleEmail = (e) => {
-    setEmail(e.target.value);
-  };
-  const handlePassword = (e) => {
-    setPassword(e.target.value);
-  };
-  const handleConfirmPassword = (e) => {
-    setConfirmPassword(e.target.value);
+  const handleChange = (e) => {
+    setRegisterData({ ...registerData, [e.target.name]: e.target.value });
   };
 
-  useEffect(() => {
-    console.log(name, email, password, confirmPassword);
-  }, [name, email, password, confirmPassword]);
-
-  const doRegister = ()=>{
-
-  }
+  const doRegister = () => {
+    dispatch(showorhideLoader(true))
+    if (registerData.password === registerData.confirmPassword) {
+      axios({
+        method: "POST",
+        url: process.env.REACT_APP_API_URL + "/authRoutes/doregister",
+        data: registerData,
+      })
+        .then((res) => {
+          successToast(res.data.message);
+          toggleBox("login");
+          dispatch(showorhideLoader(false))
+        })
+        .catch((err) => {
+          dispatch(showorhideLoader(false))
+          ErrorToast(err?.response?.data.message || "something went wrong");
+        });
+    } else {
+      ErrorToast("Passwords are not matching");
+    }
+  };
 
   return (
     <>
@@ -40,8 +45,8 @@ function RegisterBox({ toggleBox }) {
             type={"text"}
             label={"Name"}
             name={"name"}
-            // value={signupData.firstName}
-            // onchange={handleChange}
+            value={registerData.name}
+            onchange={handleChange}
           />
         </div>
 
@@ -50,8 +55,8 @@ function RegisterBox({ toggleBox }) {
             type={"email"}
             label={"Email"}
             name={"email"}
-            // value={signupData.email}
-            // onchange={handleChange}
+            value={registerData.email}
+            onchange={handleChange}
           />
         </div>
 
@@ -60,8 +65,8 @@ function RegisterBox({ toggleBox }) {
             type={"password"}
             label={"Password"}
             name={"password"}
-            // value={signupData.passowrd}
-            // onchange={handleChange}
+            value={registerData.passowrd}
+            onchange={handleChange}
           />
         </div>
         <div className=" mt-4">
@@ -69,13 +74,13 @@ function RegisterBox({ toggleBox }) {
             type={"password"}
             label={"Confirm Password"}
             name={"confirmPassword"}
-            // value={signupData.confirmPassword}
-            // onchange={handleChange}
+            value={registerData.confirmPassword}
+            onchange={handleChange}
           />
         </div>
         <button
           className="common-button mt-4 align-self-center "
-          // onClick={doSignup}
+          onClick={doRegister}
         >
           {" "}
           Register
