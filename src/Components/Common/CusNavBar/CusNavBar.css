@@ -20,7 +20,6 @@
 }
 
 .form-control{
-  background-color: var(--brand-grey-2);
   outline: none;
   border: none;
 }

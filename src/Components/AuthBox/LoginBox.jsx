@@ -46,7 +46,7 @@ function LoginBox({ toggleBox }) {
         dispatch(setUserData(res.data.user));
         navigate("/home");
         dispatch(showorhideLoader(false));
-        successToast(res.data.message);
+        successToast(`Welcome back, ${res.data.user.name}! You have successfully logged in.`);
         setSubmitting(false);
       })
       .catch((err) => {

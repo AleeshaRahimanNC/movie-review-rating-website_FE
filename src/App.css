@@ -1,15 +1,36 @@
-.common-button{
-    padding: .3rem .7rem;
-    background-color: var(--brand-red);
-    color: var(--brand-white);
-    border: 1px thin var(--brand-grey);
-    border-radius: 5px;
-  }
-  .common-button:hover{
-    background-color: rgb(218, 15, 15);
-    color: var(--brand-white);
-  
-  }
-  .common-button:active{
-    transform: scale(.99);
-  }
+.common-button {
+  padding: .3rem .7rem;
+  background-color: var(--brand-red);
+  color: var(--brand-white);
+  border: 1px thin var(--brand-grey);
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.common-button:hover {
+  background-color: rgb(218, 15, 15);
+  color: var(--brand-white);
+
+}
+
+.common-button:active {
+  transform: scale(.99);
+}
+
+.movieBox-cancel {
+  padding: .3rem .7rem;
+  background-color: var(--brand-black); /* Original color */
+  color: var(--brand-white); /* Original text color */
+  border: 1px thin var(--brand-grey);
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.movieBox-cancel:hover {
+  background-color: var(--brand-grey); /* Change to desired hover color */
+  color: var(--brand-white); /* Change to desired text color */
+}
+
+.movieBox-cancel:active {
+  transform: scale(.99);
+}
