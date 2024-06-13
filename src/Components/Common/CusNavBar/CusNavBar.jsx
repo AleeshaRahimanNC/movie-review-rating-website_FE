@@ -6,41 +6,63 @@ import { faCog, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 
-function CusNavBar() {
-
-  const [showSearchInput, setShowSearchInput] = useState(false)
-  const {user} =useSelector(state=>state.user)
-  const navigate=useNavigate()
+function CusNavBar({ onCategorySelect }) {
+  const [showSearchInput, setShowSearchInput] = useState(false);
+  const { user } = useSelector((state) => state.user);
+  const navigate = useNavigate();
   const location = useLocation();
 
+  // const handleCategoryClick = (category) => {
+  //   if (onCategorySelect) {
+  //     onCategorySelect(category);
+  //   }
+  // };
+
+  const handleCategoryClick = (category) => {
+    if (category === "All Movies") {
+      // If "All Movies" is clicked, pass null to indicate show all movies
+      if (onCategorySelect) {
+        onCategorySelect(null);
+      }
+    } else {
+      // Otherwise, pass the selected category
+      if (onCategorySelect) {
+        onCategorySelect(category);
+      }
+    }
+  };
 
   const toggleSearchInput = () => {
-    setShowSearchInput(!showSearchInput)
-  }
+    setShowSearchInput(!showSearchInput);
+  };
 
   const handleUserHomeClick = () => {
-    navigate('/home');
+    navigate("/home");
   };
 
   const handleAdminHomeClick = () => {
-    navigate('/adminHome');
+    navigate("/adminHome");
   };
 
   const handleLogout = () => {
     localStorage.clear();
-    navigate('/'); // Redirect to login or home page
+    navigate("/"); // Redirect to login or home page
   };
 
-  const isAdminPanelPage = location.pathname.startsWith('/adminHome');
-
+  const isAdminPanelPage = location.pathname.startsWith("/adminHome");
 
   return (
     <>
       <nav className="navbar navbar-expand-lg shadow py-3 sticky-top">
         <div className="container-fluid">
           <span className="navbar-brand">
-            <img className="navbar-icon" src={ICON} alt="" style={{ marginRight: '3px' }}/>
-            Hi <span style={{ marginLeft: '5px' }}>{user.name}</span>!
+            <img
+              className="navbar-icon"
+              src={ICON}
+              alt=""
+              style={{ marginRight: "3px" }}
+            />
+            Hi <span style={{ marginLeft: "5px" }}>{user.name}</span>!
           </span>
           <button
             className="navbar-toggler"
@@ -50,58 +72,78 @@ function CusNavBar() {
             aria-controls="navbarText"
             aria-expanded="false"
             aria-label="Toggle navigation"
-            
           >
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse" id="navbarText">
             <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
-
               <li className="nav-item">
-                <span className="nav-link" onClick={handleUserHomeClick}>Home</span>
+                <span className="nav-link" onClick={handleUserHomeClick}>
+                  Home
+                </span>
               </li>
 
-              {user.role === 'admin' && isAdminPanelPage && (
+              {user.role === "admin" && isAdminPanelPage && (
                 <li className="nav-item">
-                  <span className="nav-link" onClick={handleAdminHomeClick} >
+                  <span className="nav-link" onClick={handleAdminHomeClick}>
                     Admin Home
                   </span>
                 </li>
               )}
-             
-             {!isAdminPanelPage && (
-              <li className="nav-item dropdown">
-              <span
-                className="nav-link dropdown-toggle"
-                id="navbarDropdownMenuLink"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="true"
-              >
-                Category
-              </span>
-              <ul
-                className="dropdown-menu" 
-                aria-labelledby="navbarDropdownMenuLink">
-                <li>
-                  <span className="dropdown-item">
-                    Malayalam
+
+              {!isAdminPanelPage && (
+                <li className="nav-item">
+                  <span
+                    className="nav-link"
+                    onClick={() => handleCategoryClick("All Movies")}
+                  >
+                    All Movies
                   </span>
                 </li>
-                <li>
-                  <span className="dropdown-item">
-                    Tamil
+              )}
+
+              {!isAdminPanelPage && (
+                <li className="nav-item dropdown">
+                  <span
+                    className="nav-link dropdown-toggle"
+                    id="navbarDropdownMenuLink"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="true"
+                  >
+                    Category
                   </span>
+                  <ul
+                    className="dropdown-menu"
+                    aria-labelledby="navbarDropdownMenuLink"
+                  >
+                    <li>
+                      <span
+                        className="dropdown-item"
+                        onClick={() => handleCategoryClick("Malayalam")}
+                      >
+                        Malayalam
+                      </span>
+                    </li>
+                    <li>
+                      <span
+                        className="dropdown-item"
+                        onClick={() => handleCategoryClick("Tamil")}
+                      >
+                        Tamil
+                      </span>
+                    </li>
+                    <li>
+                      <span
+                        className="dropdown-item"
+                        onClick={() => handleCategoryClick("Hindi")}
+                      >
+                        Hindi
+                      </span>
+                    </li>
+                  </ul>
                 </li>
-                <li>
-                  <span className="dropdown-item">
-                    Hindi
-                  </span>
-                </li>
-                
-              </ul>
-              </li>
-             )}
+              )}
             </ul>
 
             <div className="d-flex align-items-center ">
@@ -116,53 +158,56 @@ function CusNavBar() {
                 className="btn btn-link text-decoration-none"
                 onClick={toggleSearchInput}
               >
-                <FontAwesomeIcon icon={faSearch} style={{ color: "#FF0000" }} size="lg" />
+                <FontAwesomeIcon
+                  icon={faSearch}
+                  style={{ color: "#FF0000" }}
+                  size="lg"
+                />
               </button>
 
-            <div className="nav-item dropdown">
-              <span
-                className="nav-link dropdown-toggle custom-dropdown-toggle"
-                id="navbarDropdownMenuLink"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="true"
-              >
-                <FontAwesomeIcon
-                  icon={faCog}
-                  style={{ color: "#FF0000" }}
-                  size="2x"
-                />
-              </span>
-              <ul
-                className="dropdown-menu dropdown-menu-end dropdown__style"
-                aria-labelledby="navbarDropdownMenuLink"
-              >
-                <li>
-                  <span className="dropdown-item">
-                    Light Mode
-                  </span>
-                </li>
-                <li>
-                  <span className="dropdown-item">
-                    Dark Mode
-                  </span>
-                </li>
-                {user.role === 'admin' && (
-                <li>
-                  <span className="dropdown-item" onClick={handleAdminHomeClick}>
-                    Admin Panel
-                  </span>
-                </li>
-                )}
-                <li>
-                  <span className="dropdown-item" onClick={handleLogout}>
-                    Logout
-                  </span>
-                </li>
-              </ul>
+              <div className="nav-item dropdown">
+                <span
+                  className="nav-link dropdown-toggle custom-dropdown-toggle"
+                  id="navbarDropdownMenuLink"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="true"
+                >
+                  <FontAwesomeIcon
+                    icon={faCog}
+                    style={{ color: "#FF0000" }}
+                    size="2x"
+                  />
+                </span>
+                <ul
+                  className="dropdown-menu dropdown-menu-end dropdown__style"
+                  aria-labelledby="navbarDropdownMenuLink"
+                >
+                  <li>
+                    <span className="dropdown-item">Light Mode</span>
+                  </li>
+                  <li>
+                    <span className="dropdown-item">Dark Mode</span>
+                  </li>
+                  {user.role === "admin" && (
+                    <li>
+                      <span
+                        className="dropdown-item"
+                        onClick={handleAdminHomeClick}
+                      >
+                        Admin Panel
+                      </span>
+                    </li>
+                  )}
+                  <li>
+                    <span className="dropdown-item" onClick={handleLogout}>
+                      Logout
+                    </span>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
-        </div>
         </div>
       </nav>
     </>

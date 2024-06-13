@@ -1,0 +1,8 @@
+.genre__style__wrapper{
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    margin-left: -17px;
+}

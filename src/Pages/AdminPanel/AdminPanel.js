@@ -19,6 +19,7 @@ function AdminPanel() {
         <h1>Admin Panel</h1>
         <button onClick={handleAddNewMovie}>Add Movie</button>
       </div>
+      
     </>
   );
 }
