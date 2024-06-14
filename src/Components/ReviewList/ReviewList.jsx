@@ -2,54 +2,65 @@ import React, { useEffect, useState } from "react";
 import "./ReviewList.css";
 import { useParams } from "react-router-dom";
 import AxiosInstance from "../../Config/apicall";
-import { ErrorToast, successToast } from "../../Plugins/Toast/Toast";
-import { useDispatch } from "react-redux";
-import { showorhideLoader } from "../../Redux/generalSlice";
+
+// import { useDispatch } from "react-redux";
+// import { showorhideLoader } from "../../Redux/generalSlice";
 
 function ReviewList() {
   const { userId } = useParams();
   const [reviews, setReviews] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [perPage] = useState(10);
+  const [toastShown, setToastShown] = useState(false);
   // const dispatch = useDispatch();
 
-  useEffect(() => {
-    fetchUserReviews();
-  }, []);
-
-  const fetchUserReviews = () => {
-    AxiosInstance.get(`/adminRoutes/user-reviews/${userId}`)
-      .then((response) => {
-        setReviews(response.data);
-      })
-      .catch((err) => {
-        console.error("Error fetching user reviews:", err);
-        ErrorToast("Failed to fetch user reviews");
-      });
-  };
+  // useEffect(() => {
+  //   if (userId) {
+  //     fetchUserReviews();
+  //   }
+  // }, [userId]);
 
   // const fetchUserReviews = () => {
-  //   dispatch(showorhideLoader(true));
   //   AxiosInstance.get(`/adminRoutes/user-reviews/${userId}`)
   //     .then((response) => {
-  //       console.log("Response:", response);
-        
-  //       if (response.data && response) {
-  //         setReviews(response.data);
-  //         dispatch(showorhideLoader(false));
-  //         successToast("data fetched");
-  //       } else  {
-  //         console.log("No reviews found for this user");
-  //         ErrorToast("No reviews found for this user");
-  //     //    setReviews([]); // Ensure reviews state is updated accordingly
-  //       }
+  //       setReviews(response.data);
   //     })
   //     .catch((err) => {
-  //       dispatch(showorhideLoader(false));
-  //       console.error("Error fetching user reviews:", err);
-  //       ErrorToast("Failed to fetch user reviews");
+  //       if (err.response && err.response.status === 404) {
+  //         if (!toastShown) {
+  //           ErrorToast("No reviews found for this user");
+  //           setToastShown(true); // Set toast shown state to true to prevent duplicate toasts
+  //         }
+  //       } else {
+  //         console.error("Error fetching user reviews:", err);
+  //         ErrorToast("Failed to fetch user reviews");
+  //       }
   //     });
   // };
+
+  useEffect(() => {
+    const fetchUserReviews = () => {
+      AxiosInstance.get(`/adminRoutes/user-reviews/${userId}`)
+        .then((response) => {
+          setReviews(response.data);
+
+          setToastShown(true); // Reset toast shown state when data is successfully fetched
+        })
+        .catch((err) => {
+          if (err.response && err.response.status === 404) {
+            if (!toastShown) {
+              setToastShown(false); // Set toast shown state to true to prevent duplicate toasts
+            }
+          } else {
+            console.error("Error fetching user reviews:", err);
+          }
+        });
+    };
+
+    fetchUserReviews();
+  }, [userId, toastShown]);
+
+
 
   // Calculate pagination boundaries
   const indexOfLastReview = currentPage * perPage;
@@ -69,7 +80,6 @@ function ReviewList() {
     setCurrentPage(page);
   };
 
-
   return (
     <div className="container-fluid">
       <div className="review-details table-responsive">
@@ -88,23 +98,31 @@ function ReviewList() {
             </tr>
           </thead>
           <tbody>
-            {currentReviews.map((review, index) => (
-              <tr key={review._id}>
-                <td>{indexOfFirstReview + index + 1}</td>
-                <td>{review._id}</td>
-                <td>{review.movieName}</td>
-                <td>{review.title}</td>
-                <td>{review.review}</td>
-                <td>{review.rating}</td>
+            {reviews.length > 0 ? (
+              currentReviews.map((review, index) => (
+                <tr key={review._id}>
+                  <td>{indexOfFirstReview + index + 1}</td>
+                  <td>{review._id}</td>
+                  <td>{review.movieName}</td>
+                  <td>{review.title}</td>
+                  <td>{review.review}</td>
+                  <td>{review.rating}</td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="6" className="text-center">
+                  No reviews found for this user.
+                </td>
               </tr>
-            ))}
+            )}
           </tbody>
         </table>
       </div>
 
       {/* Pagination */}
       <div className="pagination__wrapper">
-      <nav aria-label="Page navigation example">
+        <nav aria-label="Page navigation example">
           <ul className="pagination">
             <li className={`page-item ${currentPage === 1 ? "disabled" : ""}`}>
               <a
@@ -154,8 +172,6 @@ function ReviewList() {
           </ul>
         </nav>
       </div>
-      
-
     </div>
   );
 }
