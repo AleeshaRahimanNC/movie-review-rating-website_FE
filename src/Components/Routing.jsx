@@ -7,6 +7,7 @@ import AdminPanel from "../Pages/AdminPanel/AdminPanel";
 import AddNewMovie from "../Pages/AddNewMovie/AddNewMovie";
 import MovieDetails from "../Pages/MovieDetails/MovieDetails";
 import LandingPage from "../Pages/LandingPage/LandingPage";
+import ReviewDetails from "../Pages/ReviewDetails/ReviewDetails";
 
 function Routing() {
   return (
@@ -19,6 +20,7 @@ function Routing() {
 
       <Route path="/adminHome" element={<AdminPanel />} />
       <Route path="/adminHome/addNewMovie" element={<AddNewMovie />} />
+      <Route path="/adminHome/reviewDetails/:userId" element={<ReviewDetails />} />
     </Routes>
   );
 }
