@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import AxiosInstance from "../../Config/apicall";
 import "./MovieDetailReview.css";
-import { ErrorToast } from "../../Plugins/Toast/Toast";
+import { ErrorToast, successToast } from "../../Plugins/Toast/Toast";
 import { useSelector } from "react-redux";
 
 function MovieDetailReview({ movieId }) {
@@ -11,32 +11,34 @@ function MovieDetailReview({ movieId }) {
   const [noReviewsMessage, setNoReviewsMessage] = useState(""); // State to store no reviews message
   const { user } = useSelector((state) => state.user);
 
-//   useEffect(() => {
-//     const fetchReviews = async () => {
-//       try {
-//         // const response = await AxiosInstance.get(`/reviewRoutes/movie/${movieId}`);
-//         // console.log("API Response:", response.data);
-//         // if (response.data.reviews) {
-//         //   setMovieReviews(response.data.reviews);
-//         // } else {
-//         //   setMovieReviews([]);
-//         // }
-        
-//         AxiosInstance.get(`/reviewRoutes/movie/${movieId}`).then((response) => {
-//           setMovieReviews(response.data);
-          
-//         });
-//       } catch (error) {
-//         console.error("Failed to fetch reviews:", error);
-//       }
-//     };
-//     fetchReviews();
-//   }, [movieId]);
+  //   useEffect(() => {
+  //     const fetchReviews = async () => {
+  //       try {
+  //         // const response = await AxiosInstance.get(`/reviewRoutes/movie/${movieId}`);
+  //         // console.log("API Response:", response.data);
+  //         // if (response.data.reviews) {
+  //         //   setMovieReviews(response.data.reviews);
+  //         // } else {
+  //         //   setMovieReviews([]);
+  //         // }
 
-useEffect(() => {
+  //         AxiosInstance.get(`/reviewRoutes/movie/${movieId}`).then((response) => {
+  //           setMovieReviews(response.data);
+
+  //         });
+  //       } catch (error) {
+  //         console.error("Failed to fetch reviews:", error);
+  //       }
+  //     };
+  //     fetchReviews();
+  //   }, [movieId]);
+
+  useEffect(() => {
     const fetchReviews = async () => {
       try {
-        const response = await AxiosInstance.get(`/reviewRoutes/movie/${movieId}`);
+        const response = await AxiosInstance.get(
+          `/reviewRoutes/movie/${movieId}`
+        );
         if (response.data.message) {
           // If response contains a message, set it as the noReviewsMessage
           setNoReviewsMessage(response.data.message);
@@ -46,11 +48,9 @@ useEffect(() => {
           setMovieReviews(response.data);
           setNoReviewsMessage(""); // Clear any previous noReviewsMessage
         }
-        
       } catch (error) {
         console.error("Failed to fetch reviews:", error);
         ErrorToast("Failed to fetch reviews. Please try again later."); // Set error message
-       
       }
     };
 
@@ -84,21 +84,41 @@ useEffect(() => {
     }
   };
 
+  //   Delete function
+  const deleteReview = async (reviewId) => {
+    try {
+      const response = await AxiosInstance.delete(`/reviewRoutes/${reviewId}`);
+      if (response.status === 200) {
+        // If successful, update frontend state to reflect deleted status
+        setMovieReviews((prevReviews) =>
+          prevReviews.map((review) =>
+            review._id === reviewId ? { ...review, status: "deleted" } : review
+          )
+        );
+        successToast(response.data.message)
+      }
+    } catch (error) {
+      console.error("Error deleting review:", error);
+      ErrorToast("Failed to delete review. Please try again later.");
+    }
+  };
+
   return (
     <>
       <div className="total-user-details table-responsive">
         <table className="table second-table table-bordered table-dark table-hover">
           <thead>
             <tr>
-              <th colSpan="7">Viewer Ratings and Reviews</th>
+              <th colSpan="8">Viewer Ratings and Reviews</th>
             </tr>
             <tr>
               <th>Sl.No.</th>
+              {user.role === "admin" && <th>Id</th>}
               <th>Name</th>
               <th>Review Title</th>
               <th>Review</th>
               <th>Rating</th>
-              {user.role === "admin" &&<th>Status</th>}
+              {user.role === "admin" && <th>Status</th>}
               {user.role === "admin" && <th>Remove User</th>}
             </tr>
           </thead>
@@ -107,22 +127,29 @@ useEffect(() => {
               currentMovieReviews.map((review, index) => (
                 <tr key={review._id}>
                   <td>{indexOfFirstReview + index + 1}</td>
+                  {user.role === "admin" && <td>{review._id}</td>}
                   <td>{review.userId.name}</td>
                   <td>{review.title}</td>
                   <td>{review.reviewText}</td>
                   <td>{review.rating}</td>
-                  {user.role === "admin" && (<td>{review.status}</td>)}
+                  {user.role === "admin" && <td>{review.status}</td>}
                   {user.role === "admin" && (
                     <td>
-                      <button className="common-button">Delete</button>
+                      <button
+                        className="common-button"
+                        onClick={() => deleteReview(review._id)}
+                      >
+                        Delete
+                      </button>
                     </td>
                   )}
                 </tr>
               ))
             ) : (
               <tr>
-                <td colSpan="7" className="text-center">
-                {noReviewsMessage || "No reviews added yet. Be the first to add a review!"}
+                <td colSpan="8" className="text-center">
+                  {noReviewsMessage ||
+                    "No reviews added yet. Be the first to add a review!"}
                 </td>
               </tr>
             )}
@@ -130,7 +157,7 @@ useEffect(() => {
         </table>
       </div>
 
-{/* Pagination */}
+      {/* Pagination */}
       <div className="pagination__wrapper">
         <nav aria-label="Page navigation example">
           <ul className="pagination">
