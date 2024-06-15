@@ -5,12 +5,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCog, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useTheme } from "../../ThemeContext/ThemeContext";
 
 function CusNavBar({ onCategorySelect }) {
   const [showSearchInput, setShowSearchInput] = useState(false);
   const { user } = useSelector((state) => state.user);
   const navigate = useNavigate();
   const location = useLocation();
+  const { toggleTheme, theme } = useTheme();
 
   // const handleCategoryClick = (category) => {
   //   if (onCategorySelect) {
@@ -52,9 +54,15 @@ function CusNavBar({ onCategorySelect }) {
 
   const isAdminPanelPage = location.pathname.startsWith("/adminHome");
 
+  const handleToggleTheme = () => {
+    toggleTheme();
+  };
+
   return (
     <>
+
       <nav className="navbar navbar-expand-lg shadow py-3 sticky-top">
+      {/* <nav className=    {`navbar navbar-expand-lg shadow py-3 sticky-top ${theme === 'light' ? 'light-theme ' : 'navbar'}`}> */}
         <div className="container-fluid">
           <span className="navbar-brand">
             <img
@@ -184,11 +192,16 @@ function CusNavBar({ onCategorySelect }) {
                   className="dropdown-menu dropdown-menu-end dropdown__style"
                   aria-labelledby="navbarDropdownMenuLink"
                 >
-                  <li>
+                  {/* <li>
                     <span className="dropdown-item">Light Mode</span>
                   </li>
                   <li>
                     <span className="dropdown-item">Dark Mode</span>
+                  </li> */}
+                  <li>
+                    <span className="dropdown-item" onClick={handleToggleTheme}>
+                      {theme === "light" ? "Dark Mode" : "Light Mode"}
+                    </span>
                   </li>
                   {user.role === "admin" && (
                     <li>

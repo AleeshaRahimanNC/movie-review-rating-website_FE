@@ -71,6 +71,12 @@
   
 }
 
+
+.light-theme {
+  background-color: var(--brand-white);
+  color: black !important;
+}
+
 .navbar-nav .nav-link.active, .navbar-nav .nav-link.show {
   color: var(--brand-white);
 }

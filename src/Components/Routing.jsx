@@ -8,6 +8,7 @@ import AddNewMovie from "../Pages/AddNewMovie/AddNewMovie";
 import MovieDetails from "../Pages/MovieDetails/MovieDetails";
 import LandingPage from "../Pages/LandingPage/LandingPage";
 import ReviewDetails from "../Pages/ReviewDetails/ReviewDetails";
+import Protected from "./ProtectedRoute/ProtectedRoute";
 
 function Routing() {
   return (
@@ -15,12 +16,12 @@ function Routing() {
       <Route path="/" element={<AuthPage />} />
 
       {/* <Route path="/home" element={<Home />} /> */}
-      <Route path="/home" element={<LandingPage/>}></Route>
-      <Route path="/home/movieDetails/:movieId" element={<MovieDetails />} />
+      <Route path="/home" element={<Protected><LandingPage/></Protected>}></Route>
+      <Route path="/home/movieDetails/:movieId" element={<Protected><MovieDetails /></Protected>} />
 
-      <Route path="/adminHome" element={<AdminPanel />} />
-      <Route path="/adminHome/addNewMovie" element={<AddNewMovie />} />
-      <Route path="/adminHome/reviewDetails/:userId" element={<ReviewDetails />} />
+      <Route path="/adminHome" element={<Protected><AdminPanel /></Protected>} />
+      <Route path="/adminHome/addNewMovie" element={<Protected><AddNewMovie /></Protected>} />
+      <Route path="/adminHome/reviewDetails/:userId" element={<Protected><ReviewDetails /></Protected>} />
     </Routes>
   );
 }

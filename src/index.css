@@ -6,6 +6,27 @@
   --brand-white: #FFFFFF;
 }
 
+/* .light-theme {
+  background-color: var(--brand-white);
+  color: var(--brand-black);
+}
+
+.dark-theme {
+  background-color: var(--brand-black);
+  color: var(--brand-white);
+} */
+
+/* .navbar .light-theme {
+  background-color: var(--brand-white);
+  color: var(--brand-black);
+}
+
+.navbar .dark-theme {
+  background-color: var(--brand-black);
+  color: var(--brand-white);
+} */
+
+
 * {
   box-sizing: border-box;
   margin: 0;
