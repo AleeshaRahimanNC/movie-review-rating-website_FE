@@ -16,7 +16,7 @@ function Routing() {
 
       {/* <Route path="/home" element={<Home />} /> */}
       <Route path="/home" element={<LandingPage/>}></Route>
-      <Route path="/home/movieDetails/:id" element={<MovieDetails />} />
+      <Route path="/home/movieDetails/:movieId" element={<MovieDetails />} />
 
       <Route path="/adminHome" element={<AdminPanel />} />
       <Route path="/adminHome/addNewMovie" element={<AddNewMovie />} />
