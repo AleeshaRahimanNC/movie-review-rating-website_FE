@@ -1,0 +1,15 @@
+.table {
+    /* padding: 5px; */
+    text-align: center;
+    vertical-align: middle;
+    border: 5px solid #a4a2a2;
+    height: 50px;
+}
+
+.pagination__wrapper {
+    width: 100%;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: center;
+}

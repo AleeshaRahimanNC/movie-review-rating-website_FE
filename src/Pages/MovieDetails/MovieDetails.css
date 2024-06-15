@@ -1,0 +1,59 @@
+.public_heading{
+    margin-top: 60px;
+    text-align: center;
+    margin-bottom: 50px;
+    font-size: 45px;
+}
+
+h3 {
+    text-align: left;
+    font-family: serif;
+}
+
+.addReview_button{
+    display: flex;
+    justify-content: end;
+    margin-bottom: 30px;
+}
+
+/* rating symbol */
+
+.star-rating {
+    display: inline-block;
+    font-size: 24px; /* Adjust as necessary */
+    margin-top: 59px;
+  }
+  
+  .star {
+    cursor: pointer;
+    color: #ddd; /* Default color for empty stars */
+  }
+  
+  .star.filled {
+    color: #f8c509; /* Color for filled stars */
+  }
+
+  /* modal */
+
+  .modal-buttons {
+    /* margin-bottom: 100px;
+    margin-top: 60px; */
+    margin-bottom: 40px;
+    margin-top: 36px;
+
+}
+
+.form__style{
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* padding: 20px; */
+}
+
+.form__input__style{
+    margin-top: 23px;
+    margin-bottom: 32px;
+
+}
+

@@ -86,7 +86,7 @@ function ReviewList() {
         <table className="table table-bordered table-dark table-hover">
           <thead>
             <tr>
-              <th colSpan="6">User Review Details</th>
+              <th colSpan="7">User Review Details</th>
             </tr>
             <tr>
               <th>Sl.No.</th>
@@ -95,6 +95,7 @@ function ReviewList() {
               <th>Review Title</th>
               <th>Review</th>
               <th>Rating</th>
+              <th>Status</th>
             </tr>
           </thead>
           <tbody>
@@ -107,6 +108,7 @@ function ReviewList() {
                   <td>{review.title}</td>
                   <td>{review.review}</td>
                   <td>{review.rating}</td>
+                  <td>{review.status}</td>
                 </tr>
               ))
             ) : (

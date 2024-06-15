@@ -20,6 +20,7 @@ function CusNavBar({ onCategorySelect }) {
 
   const handleCategoryClick = (category) => {
     if (category === "All Movies") {
+      navigate("/home");
       // If "All Movies" is clicked, pass null to indicate show all movies
       if (onCategorySelect) {
         onCategorySelect(null);
