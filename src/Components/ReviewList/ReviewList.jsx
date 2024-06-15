@@ -3,6 +3,7 @@ import "./ReviewList.css";
 import { useParams } from "react-router-dom";
 import AxiosInstance from "../../Config/apicall";
 
+
 // import { useDispatch } from "react-redux";
 // import { showorhideLoader } from "../../Redux/generalSlice";
 
@@ -11,7 +12,8 @@ function ReviewList() {
   const [reviews, setReviews] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [perPage] = useState(10);
-  const [toastShown, setToastShown] = useState(false);
+  // const [toastShown, setToastShown] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   // const dispatch = useDispatch();
 
   // useEffect(() => {
@@ -38,29 +40,57 @@ function ReviewList() {
   //     });
   // };
 
+  // working code
+  // useEffect(() => {
+  //   const fetchUserReviews = () => {
+  //     AxiosInstance.get(`/adminRoutes/user-reviews/${userId}`)
+  //       .then((response) => {
+  //         setReviews(response.data);
+
+  //         setToastShown(true); // Reset toast shown state when data is successfully fetched
+  //       })
+  //       .catch((err) => {
+  //         if (err.response && err.response.status === 404) {
+  //           if (!toastShown) {
+  //             setToastShown(false); // Set toast shown state to true to prevent duplicate toasts
+  //           }
+  //         } else {
+  //           console.error("Error fetching user reviews:", err);
+  //         }
+  //       });
+  //   };
+
+  //   fetchUserReviews();
+  // }, [userId, toastShown]);
+
   useEffect(() => {
-    const fetchUserReviews = () => {
-      AxiosInstance.get(`/adminRoutes/user-reviews/${userId}`)
-        .then((response) => {
+    const fetchUserReviews = async () => {
+      try {
+        const response = await AxiosInstance.get(`/adminRoutes/user-reviews/${userId}`);
+        if (response.status === 404) {
+          setReviews([]); // No reviews found, set empty array
+          setErrorMessage("No reviews found for this user."); // Set error message from backend
+        } else if (response.data.length > 0) {
           setReviews(response.data);
-
-          setToastShown(true); // Reset toast shown state when data is successfully fetched
-        })
-        .catch((err) => {
-          if (err.response && err.response.status === 404) {
-            if (!toastShown) {
-              setToastShown(false); // Set toast shown state to true to prevent duplicate toasts
-            }
-          } else {
-            console.error("Error fetching user reviews:", err);
-          }
-        });
+          setErrorMessage(""); // Clear error message if reviews are found
+        } else {
+          setReviews([]); // No reviews found, set empty array
+          setErrorMessage("No reviews found for this user."); // Set error message from backend
+        }
+      } catch (error) {
+        if (error.response && error.response.status === 404) {
+          setReviews([]); // No reviews found, set empty array
+          setErrorMessage("No reviews found for this user."); // Set error message from backend
+        } else {
+          console.error("Error fetching user reviews:", error);
+          setErrorMessage("Failed to fetch user reviews."); // Set generic error message
+        }
+      }
     };
-
+  
     fetchUserReviews();
-  }, [userId, toastShown]);
-
-
+  }, [userId]);
+  
 
   // Calculate pagination boundaries
   const indexOfLastReview = currentPage * perPage;
@@ -113,8 +143,9 @@ function ReviewList() {
               ))
             ) : (
               <tr>
-                <td colSpan="6" className="text-center">
-                  No reviews found for this user.
+                <td colSpan="7" className="text-center">
+                  {/* No reviews found for this user. */}
+                  {errorMessage}
                 </td>
               </tr>
             )}
