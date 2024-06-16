@@ -3,6 +3,7 @@ import "./AdminPanel.css";
 import CusNavBar from "../../Components/Common/CusNavBar/CusNavBar";
 import { useNavigate } from "react-router-dom";
 import UserList from "../../Components/UserList/UserList";
+import Footer from "../../Components/Common/Footer/Footer";
 
 function AdminPanel() {
   const navigate = useNavigate();
@@ -27,7 +28,11 @@ function AdminPanel() {
         </div>
 
         <UserList />
+
       </div>
+
+      {/* Footer */}
+      <Footer/>
     </>
   );
 }

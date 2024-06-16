@@ -6,6 +6,7 @@ import MovieListBody from "../../Components/MovieListBody/MovieListBody";
 import AxiosInstance from "../../Config/apicall";
 import { ErrorToast } from "../../Plugins/Toast/Toast";
 import Offcanvas from "react-bootstrap/Offcanvas";
+import Footer from "../../Components/Common/Footer/Footer";
 
 function LandingPage() {
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -129,6 +130,9 @@ function LandingPage() {
       <div className="d-flex flex-column vh-100">
         <MovieListBody category={selectedCategory} genre={selectedGenre} />
       </div>
+
+      {/* Footer */}
+      <Footer/>
     </>
   );
 }

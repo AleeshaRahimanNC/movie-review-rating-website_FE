@@ -14,6 +14,7 @@ import { faStar as farStar } from "@fortawesome/free-regular-svg-icons"; // Regu
 import { ErrorToast, successToast } from "../../Plugins/Toast/Toast";
 import MovieDetailReview from "../../Components/MovieDetailReview/MovieDetailReview";
 import { useSelector } from "react-redux";
+import Footer from "../../Components/Common/Footer/Footer";
 
 function MovieDetails() {
   const { movieId } = useParams();
@@ -146,6 +147,9 @@ function MovieDetails() {
           </form>
         </Modal>
       )}
+
+      {/* Footer */}
+      <Footer/>
     </>
   );
 }

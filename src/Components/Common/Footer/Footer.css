@@ -1,0 +1,60 @@
+footer {
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(../../../Assets/background_img.jpeg);
+    padding-top: 120px;
+    padding-bottom: 30px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    margin-top: 65px;
+}
+
+.logo__wrapper1 {
+    margin-top: 21px;
+}
+
+.logo1 {
+    color: var(--brand-white);
+    font-family: serif;
+    
+    /* z-index: 2; */
+}
+
+.logo1 .mystic-icon1 {
+    width: 50px;
+    height: 38px;
+    /* z-index: 2; */
+}
+
+
+.footer-top {
+    margin-bottom: 30px;
+}
+
+footer p,
+footer a {
+    color: rgba(255, 255, 255, 0.75);
+}
+
+
+footer .social-links a {
+    font-weight: normal;
+    font-size: 24px;
+    margin-right: 10px;
+}
+
+.footer-bottom {
+
+    padding-top: 30px;
+    border-top: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.footer-link{
+    font-weight: 800;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.footer-link:hover{
+    color: var(--brand-red);
+    /* text-decoration: underline; */
+}
