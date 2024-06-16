@@ -61,9 +61,7 @@ function LandingPage() {
       </div>
 
 
-      <Offcanvas style={{    width: "20%",
-      backgroundColor:"#362c2cf2"
-
+      <Offcanvas className="offcanvas-custom" style={{   
 }} show={show} onHide={handleClose} placement="end">
         <Offcanvas.Header style={{backgroundColor:"white"}} closeButton>
           <Offcanvas.Title>Genre</Offcanvas.Title>

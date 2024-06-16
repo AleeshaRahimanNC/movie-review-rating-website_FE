@@ -6,3 +6,20 @@
     margin-bottom: 15px;
     margin-left: -17px;
 }
+/* .offcanvas__style{
+    width: "20%";
+    background-color:"#362c2cf2" ;
+   
+} */
+.offcanvas-custom {
+    width: 20% !important;
+    background-color: #362c2cf2;
+  }
+
+  @media only screen and (max-width: 600px) {
+    .offcanvas-custom {
+        width: 70% !important;
+     
+      }
+    
+  }

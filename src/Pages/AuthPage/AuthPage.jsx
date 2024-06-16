@@ -87,7 +87,7 @@ function AuthPage() {
           </div>
 
           <div className="col-md-6 right-side ">
-            <h3 className="w-100 text-center mt-4 mb-4">
+            <h3 className="text-center mt-4 mb-4">
               {boxType === "login" ? "Login" : "Register"}
             </h3>
             {boxType === "login" ? (

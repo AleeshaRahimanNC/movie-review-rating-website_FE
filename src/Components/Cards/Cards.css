@@ -54,10 +54,12 @@
 .card:hover h2 {
     inset: auto auto 90px 30px;
     transition: inset 0.3s ease-out;
+    background-color: rgba(0, 0, 0, 0.6);
 }
 .card:hover p {
     opacity: 1;
     transition: opacity 0.5s 0.1s ease-in;
+    background-color: rgba(0, 0, 0, 0.6);
 }
 .card:hover img {
     /* transition: opacity 0.3s ease-in; */
@@ -67,9 +69,10 @@
     opacity: 1; /* Show overlay on hover */
   }
   
-/* .card-content{
+ /* .card-content:hover{
     background-color: rgba(0, 0, 0, 0.6);
-} */
+ }  */
+
 
 .material-symbols-outlined {
     vertical-align: middle;
