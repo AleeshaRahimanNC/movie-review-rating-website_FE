@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./UserList.css";
 import AxiosInstance from "../../Config/apicall";
-import { ErrorToast } from "../../Plugins/Toast/Toast";
+import { ErrorToast, successToast } from "../../Plugins/Toast/Toast";
 import { useNavigate } from "react-router-dom";
 
 function UserList() {
@@ -60,6 +60,7 @@ function UserList() {
     })
       .then((response) => {
         console.log(response.data.message);
+        successToast(response.data.message);
         // Update the user list after status update
         fetchDashboardData();
       })
@@ -76,6 +77,7 @@ function UserList() {
     })
       .then((response) => {
         console.log(response.data.message);
+        successToast(response.data.message);
         // Update the user list after status update
         fetchDashboardData();
       })

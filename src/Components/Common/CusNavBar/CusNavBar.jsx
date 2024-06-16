@@ -34,6 +34,7 @@ function CusNavBar({ onCategorySelect }) {
       }
     }
   };
+  
 
   const toggleSearchInput = () => {
     setShowSearchInput(!showSearchInput);

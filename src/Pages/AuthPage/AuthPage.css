@@ -22,6 +22,7 @@
 
 .logo {
   color: var(--brand-white);
+  font-family: serif;
   z-index: 2;
 }
 

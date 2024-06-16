@@ -13,11 +13,15 @@ import { faStar as fasStar } from "@fortawesome/free-solid-svg-icons"; // Solid 
 import { faStar as farStar } from "@fortawesome/free-regular-svg-icons"; // Regular star icon
 import { ErrorToast, successToast } from "../../Plugins/Toast/Toast";
 import MovieDetailReview from "../../Components/MovieDetailReview/MovieDetailReview";
+import { useSelector } from "react-redux";
 
 function MovieDetails() {
   const { movieId } = useParams();
   const [openAddReview, setAddReview] = useState(false);
   const [rating, setRating] = useState(0);
+  const { user } = useSelector((state) => state.user);
+  const userName = user?.name || "User";
+
 
   // Formik form initialization and validation schema
   const formik = useFormik({
@@ -45,7 +49,7 @@ function MovieDetails() {
       } catch (error) {
         if (error.response) {
           if (error.response.status === 400) {
-            ErrorToast("User has already reviewed this movie");
+            ErrorToast(`Ah, ${userName}, you've already shared your review upon this film.`);
           } else if (error.response.status === 404) {
             ErrorToast("Movie not found");
           } else {
