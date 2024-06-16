@@ -55,6 +55,7 @@ Before you begin, ensure you have met the following requirements:
     npm install --save @fortawesome/free-solid-svg-icons
     npm install --save @fortawesome/react-fontawesome
     npm install --save @fortawesome/free-brands-svg-icons
+    npm install @fortawesome/free-regular-svg-icons
     ```
 
 7. **Formik**: For handling forms and form validation.
