@@ -119,7 +119,7 @@ function MovieDetailReview({ movieId }) {
               <th>Review</th>
               <th>Rating</th>
               {user.role === "admin" && <th>Status</th>}
-              {user.role === "admin" && <th>Remove User</th>}
+              {user.role === "admin" && <th>Remove Review</th>}
             </tr>
           </thead>
           <tbody>
