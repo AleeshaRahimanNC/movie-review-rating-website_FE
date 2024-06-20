@@ -6,27 +6,6 @@
   --brand-white: #FFFFFF;
 }
 
-/* .light-theme {
-  background-color: var(--brand-white);
-  color: var(--brand-black);
-}
-
-.dark-theme {
-  background-color: var(--brand-black);
-  color: var(--brand-white);
-} */
-
-/* .navbar .light-theme {
-  background-color: var(--brand-white);
-  color: var(--brand-black);
-}
-
-.navbar .dark-theme {
-  background-color: var(--brand-black);
-  color: var(--brand-white);
-} */
-
-
 * {
   box-sizing: border-box;
   margin: 0;
@@ -43,5 +22,38 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+body.light-theme, .navbar.light-theme, .dropdown-menu.light-theme, .form-control.light-theme {
+  background-color: var(--brand-white);
+  color: var(--brand-black);
+}
 
+body.dark-theme, .navbar.dark-theme, .dropdown-menu.dark-theme, .form-control.dark-theme  {
+  background-color: var(--brand-black);
+  color: var(--brand-white);
+}
 
+.light-theme .navbar-brand,
+.light-theme .navbar-nav .nav-link,
+.light-theme .dropdown-item {
+  color: var(--brand-black);
+}
+
+.dark-theme .navbar-brand,
+.dark-theme .navbar-nav .nav-link,
+.dark-theme .dropdown-item {
+  color: var(--brand-white);
+}
+
+.light-theme .navbar-nav .nav-link.active,
+.light-theme .navbar-nav .nav-link.show {
+  color: var(--brand-black);
+}
+
+.light-theme .form-control {
+  border: 1px solid var(--brand-grey);
+}
+
+.dark-theme .form-control {
+  background-color: var(--brand-white);
+  color: var(--brand-black);
+}

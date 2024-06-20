@@ -1,7 +1,8 @@
 .navbar{
   background-color: var(--brand-black);
-  color: white;
+  color: var(--brand-white);
 }
+
 
 .navbar-icon {
   width: 50px;
@@ -72,10 +73,12 @@
 }
 
 
-.light-theme {
+
+
+/* .light-theme {
   background-color: var(--brand-white);
   color: black !important;
-}
+} */
 
 .navbar-nav .nav-link.active, .navbar-nav .nav-link.show {
   color: var(--brand-white);

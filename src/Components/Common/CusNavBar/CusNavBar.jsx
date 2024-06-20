@@ -62,8 +62,8 @@ function CusNavBar({ onCategorySelect }) {
   return (
     <>
 
-      <nav className="navbar navbar-expand-lg shadow py-3 sticky-top">
-      {/* <nav className=    {`navbar navbar-expand-lg shadow py-3 sticky-top ${theme === 'light' ? 'light-theme ' : 'navbar'}`}> */}
+      {/* <nav className="navbar navbar-expand-lg shadow py-3 sticky-top"> */}
+      <nav className=    {`navbar navbar-expand-lg shadow py-3 sticky-top ${theme}-theme`}>
         <div className="container-fluid">
           <span className="navbar-brand">
             <img
@@ -124,7 +124,8 @@ function CusNavBar({ onCategorySelect }) {
                     Category
                   </span>
                   <ul
-                    className="dropdown-menu"
+                    // className="dropdown-menu"
+                    className={`dropdown-menu ${theme}-theme`}
                     aria-labelledby="navbarDropdownMenuLink"
                   >
                     <li>
@@ -160,7 +161,8 @@ function CusNavBar({ onCategorySelect }) {
               {showSearchInput && (
                 <input
                   type="text"
-                  className="form-control me-2"
+                  // className="form-control me-2"
+                  className={`form-control me-2 ${theme}-theme`}
                   placeholder="Search..."
                 />
               )}
@@ -190,7 +192,8 @@ function CusNavBar({ onCategorySelect }) {
                   />
                 </span>
                 <ul
-                  className="dropdown-menu dropdown-menu-end dropdown__style"
+                  // className="dropdown-menu dropdown-menu-end dropdown__style"
+                  className={`dropdown-menu dropdown-menu-end dropdown__style ${theme}-theme`}
                   aria-labelledby="navbarDropdownMenuLink"
                 >
                   {/* <li>
