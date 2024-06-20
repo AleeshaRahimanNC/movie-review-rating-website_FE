@@ -3,6 +3,7 @@ import "./UserList.css";
 import AxiosInstance from "../../Config/apicall";
 import { ErrorToast, successToast } from "../../Plugins/Toast/Toast";
 import { useNavigate } from "react-router-dom";
+import { useTheme } from "../ThemeContext/ThemeContext";
 
 function UserList() {
   const [totalUsersCount, setTotalUsersCount] = useState(0);
@@ -12,6 +13,7 @@ function UserList() {
   const [perPage] = useState(10);
   const [recentUsers, setRecentUsers] = useState([]);
   const navigate = useNavigate();
+  const { theme } = useTheme();
 
 
   useEffect(() => {
@@ -98,7 +100,8 @@ function UserList() {
         {/* Total Count */}
         <div className="total-count table-responsive">
           <table
-            class="table first_table table-bordered table-dark table-hover"
+            // class="table first_table table-bordered table-dark table-hover"
+            className={`table first_table ${theme === 'light' ? 'table-light' : 'table-dark'} table-bordered table-hover`}
             style={{ width: "50%", margin: "0 auto", tableLayout: "fixed" }}
           >
             <thead>
@@ -122,7 +125,8 @@ function UserList() {
 
         {/* Total User Table */}
         <div className="total-user-details table-responsive">
-          <table class="table second-table table-bordered table-dark table-hover">
+          {/* <table class="table second-table table-bordered table-dark table-hover"> */}
+            <table className={`table second-table ${theme === 'light' ? 'table-light' : 'table-dark'} table-bordered table-hover`}>
             <thead>
               <tr>
                 <th colSpan="9">Total User Details</th>
@@ -260,7 +264,8 @@ function UserList() {
 
         {/* Recent User Table */}
         <div className="recent-user-details table-responsive">
-          <table class="table third-table table-bordered table-dark table-hover">
+          {/* <table class="table third-table table-bordered table-dark table-hover"> */}
+            <table className={`table third-table ${theme === 'light' ? 'table-light' : 'table-dark'} table-bordered table-hover`}>
             <thead>
               <tr>
                 <th colSpan="7">Recent User Details</th>

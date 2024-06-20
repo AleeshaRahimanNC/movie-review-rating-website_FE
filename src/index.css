@@ -22,6 +22,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* navbar */
 body.light-theme, .navbar.light-theme, .dropdown-menu.light-theme, .form-control.light-theme {
   background-color: var(--brand-white);
   color: var(--brand-black);
@@ -57,3 +58,5 @@ body.dark-theme, .navbar.dark-theme, .dropdown-menu.dark-theme, .form-control.da
   background-color: var(--brand-white);
   color: var(--brand-black);
 }
+
+

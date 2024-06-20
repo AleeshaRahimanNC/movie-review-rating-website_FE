@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import "./ReviewList.css";
 import { useParams } from "react-router-dom";
 import AxiosInstance from "../../Config/apicall";
+import { useTheme } from "../ThemeContext/ThemeContext";
+
 
 
 // import { useDispatch } from "react-redux";
@@ -14,6 +16,7 @@ function ReviewList() {
   const [perPage] = useState(10);
   // const [toastShown, setToastShown] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const { theme } = useTheme();
   // const dispatch = useDispatch();
 
   // useEffect(() => {
@@ -113,7 +116,8 @@ function ReviewList() {
   return (
     <div className="container-fluid">
       <div className="review-details table-responsive">
-        <table className="table table-bordered table-dark table-hover">
+        {/* <table className="table table-bordered table-dark table-hover"> */}
+          <table className={`table ${theme === 'light' ? 'table-light' : 'table-dark'} table-bordered table-hover`}>
           <thead>
             <tr>
               <th colSpan="7">User Review Details</th>

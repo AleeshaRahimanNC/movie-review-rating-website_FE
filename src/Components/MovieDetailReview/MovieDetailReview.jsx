@@ -3,6 +3,7 @@ import AxiosInstance from "../../Config/apicall";
 import "./MovieDetailReview.css";
 import { ErrorToast, successToast } from "../../Plugins/Toast/Toast";
 import { useSelector } from "react-redux";
+import { useTheme } from "../ThemeContext/ThemeContext";
 
 function MovieDetailReview({ movieId }) {
   const [movieReviews, setMovieReviews] = useState([]);
@@ -10,6 +11,7 @@ function MovieDetailReview({ movieId }) {
   const [perPage] = useState(10);
   const [noReviewsMessage, setNoReviewsMessage] = useState(""); // State to store no reviews message
   const { user } = useSelector((state) => state.user);
+  const { theme } = useTheme();
 
   //   useEffect(() => {
   //     const fetchReviews = async () => {
@@ -106,7 +108,8 @@ function MovieDetailReview({ movieId }) {
   return (
     <>
       <div className="total-user-details table-responsive">
-        <table className="table second-table table-bordered table-dark table-hover">
+        {/* <table className="table second-table table-bordered table-dark table-hover"> */}
+        <table className={`table second-table ${theme === 'light' ? 'table-light' : 'table-dark'} table-bordered table-hover`}>
           <thead>
             <tr>
               <th colSpan="8">Viewer Ratings and Reviews</th>

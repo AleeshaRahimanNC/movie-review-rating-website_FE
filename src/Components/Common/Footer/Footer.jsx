@@ -8,10 +8,13 @@ import {
   faTwitter,
   faLinkedinIn,
 } from "@fortawesome/free-brands-svg-icons";
+// import { useTheme } from "../../ThemeContext/ThemeContext";
 
 function Footer() {
+  // const { theme } = useTheme();
   return (
     <>
+    {/* <footer className={`bg-cover ${theme}-theme`}> */}
       <footer className="bg-cover">
         <div className="footer-top">
           <div className="container">
