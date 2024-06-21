@@ -8,9 +8,11 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useTheme } from "../../ThemeContext/ThemeContext";
 import { ErrorToast } from "../../../Plugins/Toast/Toast";
 
+
 function CusNavBar({ onCategorySelect, movies = [] }) {
   const [showSearchInput, setShowSearchInput] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
   const { user } = useSelector((state) => state.user);
   const navigate = useNavigate();
   const location = useLocation();
@@ -39,6 +41,9 @@ function CusNavBar({ onCategorySelect, movies = [] }) {
 
   const toggleSearchInput = () => {
     setShowSearchInput(!showSearchInput);
+    if (!showSearchInput) {
+      setSuggestions([]);
+    }
   };
 
   const handleUserHomeClick = () => {
@@ -60,18 +65,50 @@ function CusNavBar({ onCategorySelect, movies = [] }) {
     toggleTheme();
   };
 
+  const handleSearchChange = (event) => {
+    const { value } = event.target;
+    setSearchQuery(value);
+
+    if (value.trim().length > 0) {
+      // Filter movies for suggestions based on searchQuery
+      const filteredMovies = movies.filter((movie) =>
+        movie.title.toLowerCase().includes(value.toLowerCase())
+      );
+      console.log("Filtered Movies:", filteredMovies);
+      setSuggestions(filteredMovies.map((movie) => movie.title));
+    } else {
+      setSuggestions([]);
+    }
+  };
+
   const handleSearch = (event) => {
     if (event.key === "Enter") {
       if (movies && movies.length > 0) {
-        const movie = movies.find((m) => m.title.toLowerCase() === searchQuery.toLowerCase());
+        const movie = movies.find(
+          (m) => m.title.toLowerCase() === searchQuery.toLowerCase()
+        );
         if (movie) {
           navigate(`/home/movieDetails/${movie._id}`);
         } else {
           ErrorToast("No result found");
         }
       } else {
-        ErrorToast("No movies available to search");
+        ErrorToast(
+          "No movies available to search! Click 'All Movies' from the navbar to see available movies."
+        );
       }
+    }
+  };
+
+  const handleSuggestionClick = (suggestion) => {
+    setSearchQuery(suggestion);
+    setSuggestions([]);
+    // Navigate to movie details page based on suggestion
+    const movie = movies.find((m) => m.title === suggestion);
+    if (movie) {
+      navigate(`/home/movieDetails/${movie._id}`);
+    } else {
+      ErrorToast("Movie details not found");
     }
   };
 
@@ -175,32 +212,52 @@ function CusNavBar({ onCategorySelect, movies = [] }) {
             </ul>
 
             <div className="d-flex align-items-center ">
-            {!isAdminPanelPage && (
-              <>
-              {showSearchInput && (
-                <input
-                  type="text"
-                  // className="form-control me-2"
-                  className={`form-control me-2 ${theme}-theme`}
-                  placeholder="Search for a movie..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  onKeyDown={handleSearch}
-                />
+              {!isAdminPanelPage && (
+                <>
+                  {showSearchInput && (
+                    <div className="position-relative">
+                      <input
+                        type="text"
+                        // className="form-control me-2"
+                        className={`form-control me-2 ${theme}-theme`}
+                        placeholder="Search for a movie..."
+                        value={searchQuery}
+                        // onChange={(e) => setSearchQuery(e.target.value)}
+                        onChange={handleSearchChange}
+                        onKeyDown={handleSearch}
+                      />
+                      {suggestions.length > 0 && (
+                        <ul
+                          className={`dropdown-menu ${theme}-theme suggestion-dropdown`}
+                          aria-labelledby="searchDropdownMenu"
+                        >
+                          {suggestions.map((suggestion, index) => (
+                            <li
+                              key={index}
+                              onClick={() => handleSuggestionClick(suggestion)}
+                            >
+                              <span className="dropdown-item">
+                                {suggestion}
+                              </span>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+                  )}
+                  <button
+                    className="btn btn-link text-decoration-none"
+                    onClick={toggleSearchInput}
+                  >
+                    <FontAwesomeIcon
+                      icon={faSearch}
+                      style={{ color: "#FF0000" }}
+                      size="lg"
+                    />
+                  </button>
+                </>
               )}
-              <button
-                className="btn btn-link text-decoration-none"
-                onClick={toggleSearchInput}
-              >
-                <FontAwesomeIcon
-                  icon={faSearch}
-                  style={{ color: "#FF0000" }}
-                  size="lg"
-                />
-              </button>
-              </>
-            )}
-            
+
               <div className="nav-item dropdown">
                 <span
                   className="nav-link dropdown-toggle custom-dropdown-toggle"
