@@ -6,9 +6,11 @@ import { faCog, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useTheme } from "../../ThemeContext/ThemeContext";
+import { ErrorToast } from "../../../Plugins/Toast/Toast";
 
-function CusNavBar({ onCategorySelect }) {
+function CusNavBar({ onCategorySelect, movies = [] }) {
   const [showSearchInput, setShowSearchInput] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
   const { user } = useSelector((state) => state.user);
   const navigate = useNavigate();
   const location = useLocation();
@@ -34,7 +36,6 @@ function CusNavBar({ onCategorySelect }) {
       }
     }
   };
-  
 
   const toggleSearchInput = () => {
     setShowSearchInput(!showSearchInput);
@@ -59,11 +60,27 @@ function CusNavBar({ onCategorySelect }) {
     toggleTheme();
   };
 
+  const handleSearch = (event) => {
+    if (event.key === "Enter") {
+      if (movies && movies.length > 0) {
+        const movie = movies.find((m) => m.title.toLowerCase() === searchQuery.toLowerCase());
+        if (movie) {
+          navigate(`/home/movieDetails/${movie._id}`);
+        } else {
+          ErrorToast("No result found");
+        }
+      } else {
+        ErrorToast("No movies available to search");
+      }
+    }
+  };
+
   return (
     <>
-
       {/* <nav className="navbar navbar-expand-lg shadow py-3 sticky-top"> */}
-      <nav className=    {`navbar navbar-expand-lg shadow py-3 sticky-top ${theme}-theme`}>
+      <nav
+        className={`navbar navbar-expand-lg shadow py-3 sticky-top ${theme}-theme`}
+      >
         <div className="container-fluid">
           <span className="navbar-brand">
             <img
@@ -158,12 +175,17 @@ function CusNavBar({ onCategorySelect }) {
             </ul>
 
             <div className="d-flex align-items-center ">
+            {!isAdminPanelPage && (
+              <>
               {showSearchInput && (
                 <input
                   type="text"
                   // className="form-control me-2"
                   className={`form-control me-2 ${theme}-theme`}
-                  placeholder="Search..."
+                  placeholder="Search for a movie..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onKeyDown={handleSearch}
                 />
               )}
               <button
@@ -176,7 +198,9 @@ function CusNavBar({ onCategorySelect }) {
                   size="lg"
                 />
               </button>
-
+              </>
+            )}
+            
               <div className="nav-item dropdown">
                 <span
                   className="nav-link dropdown-toggle custom-dropdown-toggle"
@@ -204,7 +228,8 @@ function CusNavBar({ onCategorySelect }) {
                   </li> */}
                   <li>
                     <span className="dropdown-item" onClick={handleToggleTheme}>
-                      {theme === "light" ? "Dark Mode" : "Light Mode"}
+                      {/* {theme === "light" ? "Dark Mode" : "Light Mode"} */}
+                      {theme === "dark" ? "Light Mode" : "Dark Mode"}
                     </span>
                   </li>
                   {user.role === "admin" && (

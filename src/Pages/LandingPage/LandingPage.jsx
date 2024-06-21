@@ -11,6 +11,7 @@ import Footer from "../../Components/Common/Footer/Footer";
 function LandingPage() {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [topRatedMovies, setTopRatedMovies] = useState([]);
+  const [movies, setMovies] = useState([]);
   // const [show, setShow] = useState(false);
   const [selectedGenre, setSelectedGenre] = useState(null); // New state for selected genre
 
@@ -25,6 +26,7 @@ function LandingPage() {
 
   useEffect(() => {
     fetchTopRatedMovies();
+    fetchAllMovies();
   }, []);
 
   const handleCategorySelect = (category) => {
@@ -50,9 +52,20 @@ function LandingPage() {
       });
   };
 
+  const fetchAllMovies = () => {
+    AxiosInstance.get("/movieRoutes/")
+      .then((resp) => {
+        setMovies(resp.data); // Store all movies in state
+      })
+      .catch((err) => {
+        console.log(err);
+        ErrorToast("Something went wrong while fetching movies");
+      });
+  };
+
   return (
     <>
-      <CusNavBar onCategorySelect={handleCategorySelect} />
+      <CusNavBar onCategorySelect={handleCategorySelect} movies={movies}/>
       <CustomCarousal topRatedMovies={topRatedMovies} />
       <div className="genre__style__wrapper">
         <button className="common-button" onClick={handleShow}>
