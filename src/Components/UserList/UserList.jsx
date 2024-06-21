@@ -2,8 +2,12 @@ import React, { useEffect, useState } from "react";
 import "./UserList.css";
 import AxiosInstance from "../../Config/apicall";
 import { ErrorToast, successToast } from "../../Plugins/Toast/Toast";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { showorhideLoader } from "../../Redux/generalSlice";
 import { useTheme } from "../ThemeContext/ThemeContext";
+
+
 
 function UserList() {
   const [totalUsersCount, setTotalUsersCount] = useState(0);
@@ -12,6 +16,7 @@ function UserList() {
   const [currentPage, setCurrentPage] = useState(1);
   const [perPage] = useState(10);
   const [recentUsers, setRecentUsers] = useState([]);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const { theme } = useTheme();
 
@@ -22,6 +27,7 @@ function UserList() {
 
   // Function to get dashboard data
   const fetchDashboardData = () => {
+    dispatch(showorhideLoader(true));
     AxiosInstance.get("/adminRoutes/dashboard-data")
       .then((response) => {
         const { totalUsersCount, recentUsersCount, totalUsers, recentUsers } =
@@ -30,8 +36,10 @@ function UserList() {
         setRecentUsersCount(recentUsersCount);
         setTotalUsers(totalUsers);
         setRecentUsers(recentUsers);
+        dispatch(showorhideLoader(false));
       })
       .catch((err) => {
+        dispatch(showorhideLoader(false));
         console.error("Error fetching dashboard data:", err);
         ErrorToast("Failed to fetch dashboard data"); // Show error toast if fetch fails
       });

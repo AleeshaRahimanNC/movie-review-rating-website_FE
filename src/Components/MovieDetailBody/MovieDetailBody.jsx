@@ -2,18 +2,24 @@ import React, { useEffect, useState } from "react";
 import "./MovieDetailBody.css";
 import AxiosInstance from "../../Config/apicall";
 import { ErrorToast } from "../../Plugins/Toast/Toast";
+import { useDispatch } from "react-redux";
+import { showorhideLoader } from "../../Redux/generalSlice";
 
 
 function MovieDetailBody({movieId}) {
     const [movieDetails, setMovieDetails] = useState(null);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         const fetchMovieDetails = async () => {
+          dispatch(showorhideLoader(true));
           try {
             const response = await AxiosInstance.get(`/movieRoutes/${movieId}`);
             setMovieDetails(response.data);
+            dispatch(showorhideLoader(false));
             
           } catch (error) {
+            dispatch(showorhideLoader(false));
             ErrorToast("Failed to fetch movie details");
             
           }

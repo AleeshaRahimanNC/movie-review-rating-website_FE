@@ -3,6 +3,8 @@ import "./ReviewList.css";
 import { useParams } from "react-router-dom";
 import AxiosInstance from "../../Config/apicall";
 import { useTheme } from "../ThemeContext/ThemeContext";
+import { useDispatch } from "react-redux";
+import { showorhideLoader } from "../../Redux/generalSlice";
 
 
 
@@ -17,7 +19,7 @@ function ReviewList() {
   // const [toastShown, setToastShown] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const { theme } = useTheme();
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   // useEffect(() => {
   //   if (userId) {
@@ -68,23 +70,29 @@ function ReviewList() {
 
   useEffect(() => {
     const fetchUserReviews = async () => {
+      dispatch(showorhideLoader(true));
       try {
         const response = await AxiosInstance.get(`/adminRoutes/user-reviews/${userId}`);
         if (response.status === 404) {
           setReviews([]); // No reviews found, set empty array
+          dispatch(showorhideLoader(false));
           setErrorMessage("No reviews found for this user."); // Set error message from backend
         } else if (response.data.length > 0) {
           setReviews(response.data);
           setErrorMessage(""); // Clear error message if reviews are found
+          dispatch(showorhideLoader(false));
         } else {
           setReviews([]); // No reviews found, set empty array
+          dispatch(showorhideLoader(false));
           setErrorMessage("No reviews found for this user."); // Set error message from backend
         }
       } catch (error) {
         if (error.response && error.response.status === 404) {
           setReviews([]); // No reviews found, set empty array
+          dispatch(showorhideLoader(false));
           setErrorMessage("No reviews found for this user."); // Set error message from backend
         } else {
+          dispatch(showorhideLoader(false));
           console.error("Error fetching user reviews:", error);
           setErrorMessage("Failed to fetch user reviews."); // Set generic error message
         }
