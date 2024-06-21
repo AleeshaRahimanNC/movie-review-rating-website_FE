@@ -58,6 +58,7 @@
 
 .dropdown-item {
   color: var(--brand-white);
+  cursor: pointer;
 }
 
 .dropdown-item:hover {
