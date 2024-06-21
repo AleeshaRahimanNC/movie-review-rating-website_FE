@@ -5,7 +5,7 @@ import { ErrorToast } from "../../Plugins/Toast/Toast";
 
 function MovieListBody({ category, genre }) {
   const [movies, setMovies] = useState([]);
-
+  
   //   useEffect(() => {
   //     // Example of fetching movies from an API endpoint
   //     fetchMovies();

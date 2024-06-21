@@ -94,7 +94,7 @@ function CusNavBar({ onCategorySelect, movies = [] }) {
         }
       } else {
         ErrorToast(
-          "No movies available to search! Click 'All Movies' from the navbar to see available movies."
+          "No movies available to search! Click 'Home' from the navbar to see available movies."
         );
       }
     }
@@ -212,8 +212,8 @@ function CusNavBar({ onCategorySelect, movies = [] }) {
             </ul>
 
             <div className="d-flex align-items-center ">
-              {!isAdminPanelPage && (
-                <>
+              {/* {!isAdminPanelPage && ( 
+                <>*/}
                   {showSearchInput && (
                     <div className="position-relative">
                       <input
@@ -255,8 +255,8 @@ function CusNavBar({ onCategorySelect, movies = [] }) {
                       size="lg"
                     />
                   </button>
-                </>
-              )}
+               {/* </>
+               )} */}
 
               <div className="nav-item dropdown">
                 <span

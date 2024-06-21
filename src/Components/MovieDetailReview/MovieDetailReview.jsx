@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import AxiosInstance from "../../Config/apicall";
 import "./MovieDetailReview.css";
 import { ErrorToast, successToast } from "../../Plugins/Toast/Toast";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useTheme } from "../ThemeContext/ThemeContext";
+import { showorhideLoader } from "../../Redux/generalSlice";
 
 function MovieDetailReview({ movieId }) {
   const [movieReviews, setMovieReviews] = useState([]);
@@ -12,6 +13,7 @@ function MovieDetailReview({ movieId }) {
   const [noReviewsMessage, setNoReviewsMessage] = useState(""); // State to store no reviews message
   const { user } = useSelector((state) => state.user);
   const { theme } = useTheme();
+  const dispatch = useDispatch();
 
   //   useEffect(() => {
   //     const fetchReviews = async () => {
@@ -37,6 +39,7 @@ function MovieDetailReview({ movieId }) {
 
   useEffect(() => {
     const fetchReviews = async () => {
+      dispatch(showorhideLoader(true));
       try {
         const response = await AxiosInstance.get(
           `/reviewRoutes/movie/${movieId}`
@@ -45,12 +48,15 @@ function MovieDetailReview({ movieId }) {
           // If response contains a message, set it as the noReviewsMessage
           setNoReviewsMessage(response.data.message);
           setMovieReviews([]); // Ensure movieReviews is set to empty array
+          dispatch(showorhideLoader(false));
         } else {
           // Otherwise, set the reviews data
           setMovieReviews(response.data);
           setNoReviewsMessage(""); // Clear any previous noReviewsMessage
+          dispatch(showorhideLoader(false));
         }
       } catch (error) {
+        dispatch(showorhideLoader(false));
         console.error("Failed to fetch reviews:", error);
         ErrorToast("Failed to fetch reviews. Please try again later."); // Set error message
       }
