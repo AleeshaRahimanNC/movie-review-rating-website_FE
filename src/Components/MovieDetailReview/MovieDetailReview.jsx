@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useTheme } from "../ThemeContext/ThemeContext";
 import { showorhideLoader } from "../../Redux/generalSlice";
 
-function MovieDetailReview({ movieId, refreshReviews }) {
+function MovieDetailReview({ movieId, refreshReviews, setRefreshReviews }) {
   const [movieReviews, setMovieReviews] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [perPage] = useState(10);
@@ -105,6 +105,7 @@ function MovieDetailReview({ movieId, refreshReviews }) {
           )
         );
         successToast(response.data.message)
+        setRefreshReviews(prev => !prev); // Toggle the refreshReviews state
         dispatch(showorhideLoader(false));
       }
     } catch (error) {

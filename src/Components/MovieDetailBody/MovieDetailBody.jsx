@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { showorhideLoader } from "../../Redux/generalSlice";
 
 
-function MovieDetailBody({movieId}) {
+function MovieDetailBody({movieId, refreshReviews}) {
     const [movieDetails, setMovieDetails] = useState(null);
     const dispatch = useDispatch();
 
@@ -26,7 +26,7 @@ function MovieDetailBody({movieId}) {
         };
     
         fetchMovieDetails();
-      }, [movieId]);
+      }, [movieId, refreshReviews]);
 
       if (!movieDetails) {
         return <div>No movie details found</div>;

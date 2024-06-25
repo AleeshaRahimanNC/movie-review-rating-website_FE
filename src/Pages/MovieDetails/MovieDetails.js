@@ -81,7 +81,7 @@ function MovieDetails() {
   return (
     <>
       <CusNavBar />
-      <MovieDetailBody movieId={movieId} />
+      <MovieDetailBody movieId={movieId} refreshReviews={refreshReviews} />
 
       <div className="container-fluid">
         <h3 className="public_heading">
@@ -96,7 +96,11 @@ function MovieDetails() {
           </button>
         </div>
 
-        <MovieDetailReview movieId={movieId} refreshReviews={refreshReviews} />
+        <MovieDetailReview
+          movieId={movieId}
+          refreshReviews={refreshReviews}
+          setRefreshReviews={setRefreshReviews}
+        />
       </div>
       {openAddReview && (
         <Modal
