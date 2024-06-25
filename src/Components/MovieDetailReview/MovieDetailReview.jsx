@@ -94,6 +94,7 @@ function MovieDetailReview({ movieId }) {
 
   //   Delete function
   const deleteReview = async (reviewId) => {
+    dispatch(showorhideLoader(true));
     try {
       const response = await AxiosInstance.delete(`/reviewRoutes/${reviewId}`);
       if (response.status === 200) {
@@ -104,8 +105,10 @@ function MovieDetailReview({ movieId }) {
           )
         );
         successToast(response.data.message)
+        dispatch(showorhideLoader(false));
       }
     } catch (error) {
+      dispatch(showorhideLoader(false));
       console.error("Error deleting review:", error);
       ErrorToast("Failed to delete review. Please try again later.");
     }
