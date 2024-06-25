@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useTheme } from "../ThemeContext/ThemeContext";
 import { showorhideLoader } from "../../Redux/generalSlice";
 
-function MovieDetailReview({ movieId }) {
+function MovieDetailReview({ movieId, refreshReviews }) {
   const [movieReviews, setMovieReviews] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [perPage] = useState(10);
@@ -63,7 +63,7 @@ function MovieDetailReview({ movieId }) {
     };
 
     fetchReviews();
-  }, [movieId]);
+  }, [movieId, refreshReviews]);
 
   const totalReviews = movieReviews.length;
 

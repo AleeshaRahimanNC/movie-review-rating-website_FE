@@ -13,8 +13,9 @@ import { faStar as fasStar } from "@fortawesome/free-solid-svg-icons"; // Solid 
 import { faStar as farStar } from "@fortawesome/free-regular-svg-icons"; // Regular star icon
 import { ErrorToast, successToast } from "../../Plugins/Toast/Toast";
 import MovieDetailReview from "../../Components/MovieDetailReview/MovieDetailReview";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Footer from "../../Components/Common/Footer/Footer";
+import { showorhideLoader } from "../../Redux/generalSlice";
 
 function MovieDetails() {
   const { movieId } = useParams();
@@ -22,7 +23,8 @@ function MovieDetails() {
   const [rating, setRating] = useState(0);
   const { user } = useSelector((state) => state.user);
   const userName = user?.name || "User";
-
+  const dispatch = useDispatch();
+  const [refreshReviews, setRefreshReviews] = useState(false); // New state for refreshing reviews
 
   // Formik form initialization and validation schema
   const formik = useFormik({
@@ -35,6 +37,7 @@ function MovieDetails() {
       reviewText: Yup.string().required("Review text is required"),
     }),
     onSubmit: async (values) => {
+      dispatch(showorhideLoader(true));
       try {
         // If user has not reviewed, proceed to add the review
         const response = await AxiosInstance.post("/reviewRoutes/add", {
@@ -44,21 +47,27 @@ function MovieDetails() {
           rating: rating,
         });
         console.log("Review added:", response.data);
+        dispatch(showorhideLoader(false));
         successToast("Review Added Successfully");
         setAddReview(false);
-        // Optionally, update movie details after adding review
+        setRefreshReviews(!refreshReviews); // Toggle the refreshReviews state
       } catch (error) {
         if (error.response) {
+          dispatch(showorhideLoader(false));
           if (error.response.status === 400) {
-            ErrorToast(`Ah, ${userName}, you've already shared your review upon this film.`);
+            ErrorToast(
+              `Ah, ${userName}, you've already shared your review upon this film.`
+            );
           } else if (error.response.status === 404) {
             ErrorToast("Movie not found");
           } else {
             ErrorToast("Failed to add review");
           }
         } else {
+          dispatch(showorhideLoader(false));
           ErrorToast("Failed to add review");
         }
+        dispatch(showorhideLoader(false));
         console.error("Failed to add review:", error);
         // Handle error (e.g., show error message)
       }
@@ -87,7 +96,7 @@ function MovieDetails() {
           </button>
         </div>
 
-        <MovieDetailReview movieId={movieId}/>
+        <MovieDetailReview movieId={movieId} refreshReviews={refreshReviews} />
       </div>
       {openAddReview && (
         <Modal
@@ -149,7 +158,7 @@ function MovieDetails() {
       )}
 
       {/* Footer */}
-      <Footer/>
+      <Footer />
     </>
   );
 }
